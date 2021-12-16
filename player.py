@@ -12,7 +12,6 @@ class Player:
         }
 
     def move(self, vec):
-        print(self.state)
         dx, dy = vec
         new_pos = [*self.pos]
         new_pos[0] += dx

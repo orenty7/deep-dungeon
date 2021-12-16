@@ -1,4 +1,5 @@
-from enums import Direction, Key, KeyState
+from enums import Key, KeyState
+
 
 class Engine:
     def __init__(self, tiles, player, world_settings):
@@ -14,9 +15,9 @@ class Engine:
         }
 
         self.moving = {
-            'velocity': [0, 0]
+            'velocity': [0, 0],
+            'on ground': False
         }
-
 
     def draw(self, screen):
         for tile in self.tiles:
@@ -32,9 +33,17 @@ class Engine:
 
     def tick(self, dt):
         velocity = self.moving['velocity']
+
+
         if self.player.state['sitting'] and self.key_state[Key.S] == KeyState.UnPressed:
             self.player.unsit()
+            # velocity[1] -= 2
 
+        if self.moving['on ground'] and self.key_state[Key.S] == KeyState.Pressed:
+            self.player.sit()
+
+        if self.moving['on ground'] and self.key_state[Key.W] == KeyState.Pressed:
+            velocity[1] = -5
 
         if self.key_state[Key.D] == KeyState.Pressed:
             velocity[0] = 10
@@ -53,18 +62,17 @@ class Engine:
         for tile in self.tiles:
             if tile.rectangle().colliderect(self.player.rectangle()):
                 if velocity[1] > 0:
-                    self.player.sit()
+                    self.moving['on ground'] = True
                 self.player.move((0, -velocity[1]))
+                self.player.move((0, -0.5))
                 velocity[1] = 0
                 break
+        else:
+            self.moving['on ground'] = False
 
-        velocity[1] += self.gravity * dt
+        if not self.moving['on ground']:
+            velocity[1] += self.gravity * dt
         self.moving['velocity'] = velocity
-
-
-
-
-
 
     # player_state = {
     #     'moving direction': 'UP',

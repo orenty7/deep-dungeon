@@ -7,16 +7,28 @@ import pygame
 
 player = Player((100, 100, 60, 100))
 tiles = []
-tiles.append(Platform((200, 400, 100, 50)))
-tiles.append(Platform((600, 500, 100, 50)))
+
+for i in range(10):
+    tiles.append(Platform((64 * i, 400 , 64, 64)))
+
+for i in range(10):
+    tiles.append(Platform((64 * 9, 400 + 64 * i , 64, 64)))
+
+
+for i in range(5):
+    tiles.append(Platform((64*15 + 64 * i, 400 , 64, 64)))
+
+for i in range(10):
+    tiles.append(Platform((64 * 15, 400 + 64 * i , 64, 64)))
+
 
 engine = Engine(tiles, player, {
-    'gravity': 10
+    'gravity': 15
 })
 FPS = 120
 
 pygame.init()
-screen = pygame.display.set_mode((1380, 720))
+screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 
 print(pygame.K_w)
