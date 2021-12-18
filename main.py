@@ -4,11 +4,11 @@ from level import tiles
 from player import Player
 from tile_loader import *
 
-player = Player((100, 100))
+player = Player((300, 100))
 
 engine = Engine(tiles, player, {
     'gravity': 15
-})
+}, (64 * 20, 64 * 12))
 FPS = 120
 
 pygame.init()

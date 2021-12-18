@@ -5,12 +5,54 @@ from tile_loader import characters
 
 S = 1.5
 
+def hitbox(sprite):
+    bound_min_x = 0
+    bound_min_y = 0
+    bound_max_x = sprite.get_width()
+    bound_max_y = sprite.get_height()
+
+    found = False
+    for y in range(sprite.get_height()):
+        for x in range(sprite.get_width()):
+            if sprite.get_at((x, y)) != (255, 255, 255, 0):
+                bound_min_y = y
+                found = True
+        if found:
+            break
+    found = False
+    for y in reversed(range(sprite.get_height())):
+        for x in range(sprite.get_width()):
+            if sprite.get_at((x, y)) != (255, 255, 255, 0):
+                bound_max_y = y + 1
+                found = True
+        if found:
+            break
+
+    found = False
+    for x in range(sprite.get_width()):
+        for y in range(sprite.get_height()):
+            if sprite.get_at((x, y)) != (255, 255, 255, 0):
+                bound_min_x = x
+                found = True
+        if found:
+            break
+
+    found = False
+    for x in reversed(range(sprite.get_width())):
+        for y in range(sprite.get_height()):
+            if sprite.get_at((x, y)) != (255, 255, 255, 0):
+                bound_max_x = x + 1
+                found = True
+        if found:
+            break
+
+    return (bound_min_x, bound_min_y), (bound_max_x - bound_min_x, bound_max_y - bound_min_y)
+
 
 class Player:
     speed = 500
     def __init__(self, pos):
         self.pos = [*pos]
-        self.size = [128, 128]
 
         self.frames = {
             PlayerState.Stand: [characters[1][0]],
@@ -18,9 +60,13 @@ class Player:
             PlayerState.Jump: [characters[1][5]]
         }
         self.frame = 0
-        self.rect = pygame.Rect((self.pos, self.size))
         self.state = PlayerState.Stand
         self.direction = Direction.Right
+
+        self.hitbox = pygame.Rect(hitbox(self.frames[self.state][self.frame]))
+        self.size = self.hitbox.size
+
+
 
     def move(self, vec):
         dx, dy = vec
@@ -30,19 +76,6 @@ class Player:
 
         self.pos = new_pos
 
-    def sit(self):
-        return
-        if not self.state['sitting']:
-            self.state['sitting'] = True
-            self.pos[1] += self.size[1] * (1 - 1 / S)
-            self.size[1] /= S
-
-    def unsit(self):
-        return
-        if self.state['sitting']:
-            self.state['sitting'] = False
-            self.pos[1] -= self.size[1] * (S - 1)
-            self.size[1] *= S
 
     def set_state(self, new_state):
         if self.state != new_state:
@@ -58,14 +91,15 @@ class Player:
         self.frame %= len(self.frames[self.state])
 
     def draw(self, screen, pos):
-        blitting_pos = (
-            pos[0],
-            pos[1] + 128 - self.frames[self.state][self.frame].get_height()
-        )
         image = self.frames[self.state][self.frame]
         if self.direction == Direction.Left:
             image = pygame.transform.flip(image, True, False)
+
         screen.blit(image, pos)
 
     def rectangle(self):
-        return pygame.Rect(self.pos, self.size)
+        return pygame.Rect((
+            self.pos[0] + self.hitbox.topleft[0],
+            self.pos[1] + self.hitbox.topleft[1]),
+            self.size
+        )
