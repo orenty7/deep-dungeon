@@ -1,28 +1,10 @@
 from engine import Engine
-from tiles import Platform
-from player import Player
 from enums import Key
-
+from level import tiles
+from player import Player
 from tile_loader import *
 
-import pygame
-
-player = Player((100, 100, 60, 100))
-tiles = []
-
-for i in range(10):
-    tiles.append(Platform((64 * i, 400 , 64, 64)))
-
-for i in range(10):
-    tiles.append(Platform((64 * 9, 400 + 64 * i , 64, 64)))
-
-
-for i in range(5):
-    tiles.append(Platform((64*15 + 64 * i, 400 , 64, 64)))
-
-for i in range(10):
-    tiles.append(Platform((64 * 15, 400 + 64 * i , 64, 64)))
-
+player = Player((100, 100))
 
 engine = Engine(tiles, player, {
     'gravity': 15
@@ -30,27 +12,22 @@ engine = Engine(tiles, player, {
 FPS = 120
 
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+screen = pygame.display.set_mode((64 * 20, 64 * 12))
 clock = pygame.time.Clock()
-
-sprites = load()
 
 print(pygame.K_w)
 print(pygame.K_a)
 print(pygame.K_s)
 print(pygame.K_d)
 
-
 finished = False
 while not finished:
     clock.tick(FPS)
 
     screen.fill('white')
-    engine.tick(1/FPS)
+    engine.tick(1 / FPS)
     engine.draw(screen)
-    for y in range(len(sprites)):
-        for x in range(8, len(sprites[y])):
-            screen.blit(sprites[y][x], (x*64, y*64 + 64))
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
@@ -64,6 +41,8 @@ while not finished:
                 engine.keydown(Key.S)
             elif event.key == pygame.K_d:
                 engine.keydown(Key.D)
+            elif event.key == pygame.K_SPACE:
+                engine.keydown(Key.Space)
         elif event.type == pygame.KEYUP:
             print(event)
             if event.key == pygame.K_w:
@@ -74,5 +53,7 @@ while not finished:
                 engine.keyup(Key.S)
             elif event.key == pygame.K_d:
                 engine.keyup(Key.D)
+            elif event.key == pygame.K_SPACE:
+                engine.keyup(Key.Space)
 
     pygame.display.update()

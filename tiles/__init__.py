@@ -1,1 +1,1 @@
-from .platform import Platform
+from .tile import Tile

@@ -2,10 +2,15 @@ from enum import Enum
 
 
 class Direction(Enum):
-    Up = 0
-    Left = 1
-    Down = 2
-    Right = 3
+    Left = 0
+    Right = 1
+
+
+class PlayerState(Enum):
+    Sit = 0
+    Jump = 1
+    Walk = 2
+    Stand = 3
 
 
 class Key(Enum):
@@ -13,6 +18,7 @@ class Key(Enum):
     D = 1
     S = 2
     A = 3
+    Space = 4
 
 
 class KeyState(Enum):

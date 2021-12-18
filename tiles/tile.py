@@ -1,26 +1,14 @@
-from __future__ import annotations
-from abc import ABC, abstractmethod
-import typing
+import pygame
 
-from pygame import Surface
+from tile_loader import sprites
 
+class Tile:
+    def __init__(self, rect, cors):
+        self.rect = pygame.Rect(rect)
+        self.image = sprites[cors[0]][cors[1]]
 
-point = typing.Tuple[float, float]
+    def rectangle(self):
+        return self.rect
 
-
-class Tile(ABC):
-    @abstractmethod
-    def draw(self, screen: Surface) -> None:
-        """Рисует себя на экране"""
-
-    @abstractmethod
-    def rectangle(self) -> typing.Tuple[point, point]:
-        """Возвращает прямоугольник в формате (<левая нижняя точка>, <правая верхняя точка>)"""
-
-    @staticmethod
-    @abstractmethod
-    def create(_="""Добавьте сюда какие-то аргументы, которые нужны чтобы создать плитку""") -> Tile:
-        """Статический метод, создающий Tile"""
-
-
-
+    def draw(self, screen):
+        screen.blit(self.image, self.rect.topleft)
