@@ -3,6 +3,8 @@ from tiles import Platform
 from player import Player
 from enums import Key
 
+from tile_loader import *
+
 import pygame
 
 player = Player((100, 100, 60, 100))
@@ -31,6 +33,8 @@ pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 
+sprites = load()
+
 print(pygame.K_w)
 print(pygame.K_a)
 print(pygame.K_s)
@@ -44,7 +48,9 @@ while not finished:
     screen.fill('white')
     engine.tick(1/FPS)
     engine.draw(screen)
-
+    for y in range(len(sprites)):
+        for x in range(8, len(sprites[y])):
+            screen.blit(sprites[y][x], (x*64, y*64 + 64))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
