@@ -13,14 +13,7 @@ class PlayerState(Enum):
     Stand = 3
 
 
-class Key(Enum):
-    W = 0
-    D = 1
-    S = 2
-    A = 3
-    Space = 4
-
-
-class KeyState(Enum):
-    Pressed = 0
-    UnPressed = 1
+class WindowState(Enum):
+    Game = 0
+    Pause = 1
+    MainMenu = 3

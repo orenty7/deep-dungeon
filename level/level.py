@@ -1,5 +1,8 @@
+import pygame
+
 from player import Player
 from engine import Engine
+from settings import FPS
 
 
 class Level:
@@ -9,10 +12,15 @@ class Level:
         self.tiles = tiles
 
         settings = {
-            'gravity': 15
+            'gravity': 1200
         }
         self.settings = settings
 
     def init_engine(self, window):
         self.engine = Engine(self.tiles, self.player, self.settings, window)
 
+
+    def tick(self, screen, events):
+        screen.fill('white')
+        self.engine.tick(1 / FPS)
+        self.engine.draw(screen)

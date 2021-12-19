@@ -18,7 +18,7 @@ def parse_level(lines):
         for tile in line:
             if tile in spritesheet:
                 tiles.append(Tile(
-                    (x * tile_size, y * tile_size, tile_size, tile_size),
+                    (x * tile_size, y * tile_size),
                     spritesheet[tile]
                 ))
             elif tile != 'empty':
@@ -45,3 +45,4 @@ def load():
     return levels
 
 levels = load()
+levels.extend([None, None])
