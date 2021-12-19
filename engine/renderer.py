@@ -36,7 +36,7 @@ class Renderer:
             self.screen_pos[0] + ((self.player.pos[0] - self.window[0] / 2) - self.screen_pos[0]) * dt * Renderer.screen_acceleration,
             0
         ]
-        self.screen_pos[0] = max(self.screen_pos[0], 256)
+        self.screen_pos[0] = max(self.screen_pos[0], 0)
 
 
     def render(self, screen):
