@@ -30,7 +30,7 @@ for row in tmp:
 scale(sprites, 64)
 
 characters = load('tiles/sprites/characters.png', 32)
-scale(characters, 128)
+scale(characters, 96)
 
 x = 0
 if __name__ == '__main__':
