@@ -23,7 +23,7 @@ def scale(sprites, size):
             sprites[y][x] = pygame.transform.scale(sprites[y][x], (size, size))
 
 
-tmp = load('sprites/sheet.png', 16)
+tmp = load('tiles/sprites/sheet.png', 16)
 tmp = tmp[:-1:]
 sprites = []
 for row in tmp:
@@ -31,7 +31,7 @@ for row in tmp:
 
 scale(sprites, 64)
 
-characters = load('sprites/characters.png', 32)
+characters = load('tiles/sprites/characters.png', 32)
 scale(characters, 128)
 
 

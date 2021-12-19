@@ -1,0 +1,23 @@
+3 5
+
+10 10
+
+empty
+empty
+empty
+
+empty
+empty
+empty
+
+empty
+empty
+empty
+
+water
+ground
+ground
+
+water
+ground
+ground

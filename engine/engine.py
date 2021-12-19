@@ -1,7 +1,7 @@
 import pygame
 
 from enums import Key, KeyState, PlayerState, Direction
-
+from .renderer import Renderer
 
 class Engine:
     def __init__(self, tiles, player, world_settings, window):
@@ -16,33 +16,17 @@ class Engine:
             Key.D: KeyState.UnPressed,
             Key.Space: KeyState.UnPressed
         }
-        self.window_width, self.window_height = window
+        self.renderer = Renderer(tiles, player, window)
         self.moving = {
             'velocity': [0, 0],
             'on ground': False
         }
         self.i = 0
         self.screen_pos = self.player.pos
-        self.render_world()
-
-    def render_world(self):
-        world_surface = pygame.Surface((64 * 100, 64 * 24))
-        world_surface.fill((102, 224, 189))
-        visible_part = pygame.Rect((self.player.pos[0] - 100, 0), (64 * 20, 64 * 12))
-        for tile in self.tiles:
-            tile.draw(world_surface)
-        self.world_surface = world_surface
 
 
     def draw(self, screen):
-        player_blitting_pos = (
-            self.player.pos[0] - self.screen_pos[0],
-            self.player.pos[1] - self.screen_pos[1]
-        )
-
-        screen.blit(self.world_surface, (-self.screen_pos[0], -self.screen_pos[1]))
-
-        self.player.draw(screen, player_blitting_pos)
+        self.renderer.render(screen)
     def keydown(self, key):
         self.key_state[key] = KeyState.Pressed
 
@@ -50,12 +34,7 @@ class Engine:
         self.key_state[key] = KeyState.UnPressed
 
     def tick(self, dt):
-        self.screen_pos = [
-            self.screen_pos[0] + ((self.player.pos[0] - self.window_width / 2) - self.screen_pos[0]) * dt * 5,
-            0
-        ]
-        self.screen_pos[0] = max(self.screen_pos[0], 256)
-
+        self.renderer.tick(dt)
         motion = self.moving['velocity']
 
         if self.i % 10 == 0:
@@ -97,7 +76,7 @@ class Engine:
                         self.player.set_state(PlayerState.Stand)
 
                 self.player.move((0, -motion[1]))
-                self.player.move((0, -0.5))
+                self.player.move((0, -0.01))
                 motion[1] = 0
                 break
         else:
