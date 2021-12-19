@@ -1,52 +1,8 @@
 import pygame
 
 from enums import PlayerState, Direction
+from utils import hitbox
 from tile_loader import characters
-
-S = 1.5
-
-def hitbox(sprite):
-    bound_min_x = 0
-    bound_min_y = 0
-    bound_max_x = sprite.get_width()
-    bound_max_y = sprite.get_height()
-
-    found = False
-    for y in range(sprite.get_height()):
-        for x in range(sprite.get_width()):
-            if sprite.get_at((x, y)) != (255, 255, 255, 0):
-                bound_min_y = y
-                found = True
-        if found:
-            break
-    found = False
-    for y in reversed(range(sprite.get_height())):
-        for x in range(sprite.get_width()):
-            if sprite.get_at((x, y)) != (255, 255, 255, 0):
-                bound_max_y = y + 1
-                found = True
-        if found:
-            break
-
-    found = False
-    for x in range(sprite.get_width()):
-        for y in range(sprite.get_height()):
-            if sprite.get_at((x, y)) != (255, 255, 255, 0):
-                bound_min_x = x
-                found = True
-        if found:
-            break
-
-    found = False
-    for x in reversed(range(sprite.get_width())):
-        for y in range(sprite.get_height()):
-            if sprite.get_at((x, y)) != (255, 255, 255, 0):
-                bound_max_x = x + 1
-                found = True
-        if found:
-            break
-
-    return (bound_min_x, bound_min_y), (bound_max_x - bound_min_x, bound_max_y - bound_min_y)
 
 
 class Player:
