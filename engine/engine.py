@@ -22,7 +22,8 @@ class Engine:
 
     def can_move(self, motion):
         rect = self.player.rectangle()
-        rect = rect.move(motion)
+        rect = pygame.Rect((rect.topleft[0] + motion[0], rect.topleft[1] + motion[1]), rect.size)
+        # rect = rect.move(motion)
         tile_rects = list(map(Tile.rectangle, self.tiles))
         return rect.collidelist(tile_rects) == -1
 
@@ -53,6 +54,11 @@ class Engine:
 
         if self.can_move((motion[0], 0)):
             self.player.pos[0] += motion[0]
+        else:
+            if motion[0] > 0:
+                self.player.pos[0] -= 0.01
+            elif motion[0] < 0:
+                self.player.pos[0] += 0.01
 
         if self.player.state != PlayerState.Jump:
             if motion[0] != 0:

@@ -25,15 +25,6 @@ class Player:
         self.hitbox = pygame.Rect(hitbox(self.frames[self.state][self.frame]))
         self.size = self.hitbox.size
 
-
-    def move(self, vec):
-        dx, dy = vec
-        new_pos = [*self.pos]
-        new_pos[0] += dx
-        new_pos[1] += dy
-
-        self.pos = new_pos
-
     def set_state(self, new_state):
         if self.state != new_state:
             print(new_state)

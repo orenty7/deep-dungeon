@@ -44,6 +44,5 @@ class Renderer:
             self.player.pos[0] - self.screen_pos[0],
             self.player.pos[1] - self.screen_pos[1]
         )
-
         screen.blit(self.surface, (-self.screen_pos[0], -self.screen_pos[1]))
         self.player.draw(screen, player_blitting_pos)

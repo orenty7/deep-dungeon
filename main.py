@@ -6,11 +6,6 @@ from enums import WindowState
 from pause import Pause
 from menu import Menu
 
-<<<<<<< HEAD
-level = levels[3]
-level.init_engine((64 * 20, 64 * 12))
-=======
->>>>>>> create-game-logic
 
 window = (64 * 20, 64 * 12)
 

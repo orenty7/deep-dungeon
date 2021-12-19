@@ -6,7 +6,6 @@ from settings import tile_size
 
 def parse_level(lines):
     lines = list(filter(lambda s: s != '', map(str.strip, lines)))
-
     width, height = map(int, lines[0].split())
     player_pos = map(int, lines[1].split())
 
@@ -37,6 +36,7 @@ def parse_level(lines):
 def load():
     path = 'level/levels'
     filenames = os.listdir(path)
+    filenames.sort()
     levels = []
     for filename in filenames:
         with open(path + '/' + filename, 'r') as file:
