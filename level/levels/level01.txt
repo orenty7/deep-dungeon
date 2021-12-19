@@ -2,22 +2,8 @@
 
 10 10
 
-empty
-empty
-empty
-
-empty
-empty
-empty
-
-empty
-empty
-empty
-
-water
-ground
-ground
-
-water
-ground
-ground
+empty              empty              empty
+empty              empty              empty
+empty              empty              empty
+stone-grass-center stone-grass-center stone-grass-center
+under-stone        under-stone        under-stone
