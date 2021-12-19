@@ -25,6 +25,7 @@ class Player:
         self.hitbox = pygame.Rect(hitbox(self.frames[self.state][self.frame]))
         self.size = self.hitbox.size
 
+
     def move(self, vec):
         dx, dy = vec
         new_pos = [*self.pos]
@@ -58,7 +59,6 @@ class Player:
         image = self.frames[self.state][self.frame]
         if self.direction == Direction.Left:
             image = pygame.transform.flip(image, True, False)
-
         screen.blit(image, pos)
 
     def rectangle(self):
