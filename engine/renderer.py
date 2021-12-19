@@ -37,6 +37,7 @@ class Renderer:
             0
         ]
         self.screen_pos[0] = max(self.screen_pos[0], 0)
+        self.screen_pos[0] = min(self.screen_pos[0], self.surface.get_width() - self.window[0])
 
 
     def render(self, screen):

@@ -72,11 +72,11 @@ class Engine:
             if motion[1] > 0:
                 if self.player.state == PlayerState.Jump:
                     self.player.set_state(PlayerState.Stand)
-                self.player.pos[1] -= 0.1
+                self.player.pos[1] -= 0.4
                 self.player.velocity[1] = 0
 
             elif motion[1] < 0:
-                self.player.pos[1] += 0.1
+                self.player.pos[1] += 0.4
                 self.player.velocity[1] = 0
 
 
