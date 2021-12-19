@@ -13,7 +13,7 @@ class Level:
         self.tiles = tiles
 
         settings = {
-            'gravity': 15
+            'gravity': 1200
         }
         self.settings = settings
 
