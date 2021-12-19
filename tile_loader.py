@@ -38,7 +38,7 @@ scale(characters, 128)
 x = 0
 if __name__ == '__main__':
     pygame.init()
-    screen = pygame.display.set_mode((128 * (len(sprites[0])), 128 * (len(sprites))))
+    screen = pygame.display.set_mode((96 * (len(sprites[0])), 96 * (len(sprites))))
     clock = pygame.time.Clock()
 
     finished = False
@@ -46,8 +46,8 @@ if __name__ == '__main__':
         screen.fill('white')
         for y in range(len(sprites)):
             for x in range(len(sprites[y])):
-                screen.blit(sprites[y][x], (128 * x, 128 * y))
-                pygame.draw.rect(screen, 'black', ((128 * x, 128 * y), (128, 128)), 2)
+                screen.blit(sprites[y][x], (96 * x, 96 * y))
+                pygame.draw.rect(screen, 'black', ((96 * x, 96 * y), (96, 96)), 2)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
