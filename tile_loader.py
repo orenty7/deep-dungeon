@@ -15,8 +15,6 @@ def load(path, source_size):
     return spritesheets
 
 
-
-
 def scale(sprites, size):
     for y in range(len(sprites)):
         for x in range(len(sprites[y])):
@@ -33,7 +31,6 @@ scale(sprites, 64)
 
 characters = load('tiles/sprites/characters.png', 32)
 scale(characters, 128)
-
 
 x = 0
 if __name__ == '__main__':
