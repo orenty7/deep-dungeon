@@ -1,52 +1,60 @@
-from engine import Engine
-from enums import Key
+import pygame
+
 from level import levels
-from player import Player
-from tile_loader import *
+from settings import FPS
+from enums import WindowState
+from pause import Pause
+from menu import Menu
 
-level = levels[0]
+<<<<<<< HEAD
+level = levels[3]
 level.init_engine((64 * 20, 64 * 12))
+=======
+>>>>>>> create-game-logic
 
-FPS = 120
+window = (64 * 20, 64 * 12)
 
 pygame.init()
-screen = pygame.display.set_mode((64 * 20, 64 * 12))
+screen = pygame.display.set_mode(window)
 clock = pygame.time.Clock()
 
+
+# level = levels[0]
+# level.init_engine((64 * 20, 64 * 12))
+
+menu = Menu(levels)
+pause = Pause(['resume', 'main menu'], window, 200)
+
 finished = False
+state = WindowState.MainMenu
 while not finished:
     clock.tick(FPS)
-
-    screen.fill('white')
-    level.engine.tick(1 / FPS)
-    level.engine.draw(screen)
-
+    events = []
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
-        elif event.type == pygame.KEYDOWN:
-            print(event)
-            if event.key == pygame.K_w:
-                level.engine.keydown(Key.W)
-            elif event.key == pygame.K_a:
-                level.engine.keydown(Key.A)
-            elif event.key == pygame.K_s:
-                level.engine.keydown(Key.S)
-            elif event.key == pygame.K_d:
-                level.engine.keydown(Key.D)
-            elif event.key == pygame.K_SPACE:
-                level.engine.keydown(Key.Space)
-        elif event.type == pygame.KEYUP:
-            print(event)
-            if event.key == pygame.K_w:
-                level.engine.keyup(Key.W)
-            elif event.key == pygame.K_a:
-                level.engine.keyup(Key.A)
-            elif event.key == pygame.K_s:
-                level.engine.keyup(Key.S)
-            elif event.key == pygame.K_d:
-                level.engine.keyup(Key.D)
-            elif event.key == pygame.K_SPACE:
-                level.engine.keyup(Key.Space)
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            if state == WindowState.Game:
+                state = WindowState.Pause
+            elif state == WindowState.Pause:
+                state = WindowState.Game
+            elif state == WindowState.MainMenu:
+                state = WindowState.Game
+        else:
+            events.append(event)
 
+    if state == WindowState.MainMenu:
+        maybe_level = menu.tick(screen, events)
+        if maybe_level is not None:
+            level = maybe_level
+            level.init_engine(window)
+            state = WindowState.Game
+    elif state == WindowState.Pause:
+        pause.tick(screen, events)
+    else:
+        level.tick(screen, events)
     pygame.display.update()
+
+
+
+

@@ -1,9 +1,0 @@
-3 5
-
-10 10
-
-empty              empty              empty
-empty              empty              empty
-empty              empty              empty
-stone-grass-center stone-grass-center stone-grass-center
-under-stone        under-stone        under-stone

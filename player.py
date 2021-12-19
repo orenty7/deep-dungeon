@@ -1,71 +1,29 @@
 import pygame
 
 from enums import PlayerState, Direction
+from utils import hitbox
 from tile_loader import characters
-
-S = 1.5
-
-def hitbox(sprite):
-    bound_min_x = 0
-    bound_min_y = 0
-    bound_max_x = sprite.get_width()
-    bound_max_y = sprite.get_height()
-
-    found = False
-    for y in range(sprite.get_height()):
-        for x in range(sprite.get_width()):
-            if sprite.get_at((x, y)) != (255, 255, 255, 0):
-                bound_min_y = y
-                found = True
-        if found:
-            break
-    found = False
-    for y in reversed(range(sprite.get_height())):
-        for x in range(sprite.get_width()):
-            if sprite.get_at((x, y)) != (255, 255, 255, 0):
-                bound_max_y = y + 1
-                found = True
-        if found:
-            break
-
-    found = False
-    for x in range(sprite.get_width()):
-        for y in range(sprite.get_height()):
-            if sprite.get_at((x, y)) != (255, 255, 255, 0):
-                bound_min_x = x
-                found = True
-        if found:
-            break
-
-    found = False
-    for x in reversed(range(sprite.get_width())):
-        for y in range(sprite.get_height()):
-            if sprite.get_at((x, y)) != (255, 255, 255, 0):
-                bound_max_x = x + 1
-                found = True
-        if found:
-            break
-
-    return (bound_min_x, bound_min_y), (bound_max_x - bound_min_x, bound_max_y - bound_min_y)
 
 
 class Player:
     speed = 500
+    acceleration = 10
+
     def __init__(self, pos):
         self.pos = [*pos]
-
+        self.velocity = [0, 0]
         self.frames = {
             PlayerState.Stand: [characters[1][0]],
             PlayerState.Walk: characters[1][:4:],
-            PlayerState.Jump: [characters[1][5]]
+            PlayerState.Jump: characters[1][5:8:]
         }
+        self.on_ground = False
         self.frame = 0
-        self.state = PlayerState.Stand
+        self.state = PlayerState.Jump
         self.direction = Direction.Right
 
         self.hitbox = pygame.Rect(hitbox(self.frames[self.state][self.frame]))
         self.size = self.hitbox.size
-
 
 
     def move(self, vec):
@@ -76,17 +34,24 @@ class Player:
 
         self.pos = new_pos
 
-
     def set_state(self, new_state):
         if self.state != new_state:
             print(new_state)
             self.frame = 0
             self.state = new_state
 
+            self.on_ground = self.state != PlayerState.Jump
+
     def set_moving_direction(self, direction):
         self.direction = direction
 
     def next_frame(self):
+        if self.state == PlayerState.Jump:
+            if self.velocity[1] >= 0:
+                self.frame = 1
+            else:
+                self.frame = 0
+            return
         self.frame += 1
         self.frame %= len(self.frames[self.state])
 
@@ -94,7 +59,6 @@ class Player:
         image = self.frames[self.state][self.frame]
         if self.direction == Direction.Left:
             image = pygame.transform.flip(image, True, False)
-
         screen.blit(image, pos)
 
     def rectangle(self):
@@ -102,4 +66,4 @@ class Player:
             self.pos[0] + self.hitbox.topleft[0],
             self.pos[1] + self.hitbox.topleft[1]),
             self.size
-        )
+        ).copy()
