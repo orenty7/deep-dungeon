@@ -1,11 +1,10 @@
 from engine import Engine
 from enums import Key
-from level import tiles
+from level.level_loader import load
 from player import Player
 from tile_loader import *
 
 player = Player((300, 100))
-
 engine = Engine(tiles, player, {
     'gravity': 15
 }, (64 * 20, 64 * 12))

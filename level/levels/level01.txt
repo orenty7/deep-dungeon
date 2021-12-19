@@ -1,0 +1,4 @@
+WorldSize 3 2
+
+water ground empty ground
+water ground empty ground

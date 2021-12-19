@@ -2,7 +2,7 @@ import pygame
 
 
 class Renderer:
-    screen_acceleration = 5
+    screen_acceleration = 2
     background = (102, 224, 189)
     def __init__(self, tiles, player, window):
 

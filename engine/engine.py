@@ -76,7 +76,7 @@ class Engine:
                         self.player.set_state(PlayerState.Stand)
 
                 self.player.move((0, -motion[1]))
-                self.player.move((0, -0.5))
+                self.player.move((0, -0.01))
                 motion[1] = 0
                 break
         else:
