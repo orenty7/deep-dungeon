@@ -4,7 +4,7 @@ from level import levels
 from player import Player
 from tile_loader import *
 
-level = levels[0]
+level = levels[4]
 level.init_engine((64 * 20, 64 * 12))
 
 FPS = 120
