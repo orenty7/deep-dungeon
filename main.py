@@ -7,16 +7,18 @@ from pause import Pause
 from menu import Menu
 
 
+window = (64 * 20, 64 * 12)
+
 pygame.init()
-screen = pygame.display.set_mode((64 * 20, 64 * 12))
+screen = pygame.display.set_mode(window)
 clock = pygame.time.Clock()
 
 
-level = levels[0]
-level.init_engine((64 * 20, 64 * 12))
+# level = levels[0]
+# level.init_engine((64 * 20, 64 * 12))
 
 menu = Menu(levels)
-pause = Pause(['resume', 'main menu'], (64 * 20, 64 * 12), 200)
+pause = Pause(['resume', 'main menu'], window, 200)
 
 finished = False
 state = WindowState.MainMenu
@@ -40,6 +42,7 @@ while not finished:
         maybe_level = menu.tick(screen, events)
         if maybe_level is not None:
             level = maybe_level
+            level.init_engine(window)
             state = WindowState.Game
     elif state == WindowState.Pause:
         pause.tick(screen, events)

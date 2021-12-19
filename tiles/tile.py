@@ -13,4 +13,5 @@ class Tile:
         return self.rect
 
     def draw(self, screen):
+        pygame.draw.rect(screen, 'black', self.rect, 2)
         screen.blit(self.image, self.rect.topleft)

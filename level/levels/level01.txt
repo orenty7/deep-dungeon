@@ -1,6 +1,6 @@
 20 12
 
-10 10
+10 0
 
 empty              empty              empty              empty              empty              empty             empty            empty            empty             empty             empty                 empty              empty             empty              empty        empty            empty         empty         empty         empty
 empty              empty              empty              empty              empty              empty             empty            empty            empty             empty             empty                 empty              empty             empty              empty        empty            empty         empty         empty         empty
