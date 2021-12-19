@@ -45,3 +45,4 @@ def load():
     return levels
 
 levels = load()
+levels.extend([None, None])

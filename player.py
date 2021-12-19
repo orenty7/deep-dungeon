@@ -8,6 +8,7 @@ from tile_loader import characters
 class Player:
     speed = 500
     acceleration = 10
+
     def __init__(self, pos):
         self.pos = [*pos]
         self.velocity = [0, 0]
@@ -18,7 +19,7 @@ class Player:
         }
         self.on_ground = False
         self.frame = 0
-        self.state = PlayerState.Stand
+        self.state = PlayerState.Jump
         self.direction = Direction.Right
 
         self.hitbox = pygame.Rect(hitbox(self.frames[self.state][self.frame]))
@@ -32,7 +33,6 @@ class Player:
 
         self.pos = new_pos
 
-
     def set_state(self, new_state):
         if self.state != new_state:
             print(new_state)
@@ -43,11 +43,6 @@ class Player:
 
     def set_moving_direction(self, direction):
         self.direction = direction
-
-    def __setattr__(self, key, value):
-        if key != 'frame':
-            print('trying to set {0} to {1}'.format(key, value))
-        super().__setattr__(key, value)
 
     def next_frame(self):
         if self.state == PlayerState.Jump:
