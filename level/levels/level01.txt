@@ -1,4 +1,23 @@
-WorldSize 3 2
+3 5
 
-water ground empty ground
-water ground empty ground
+10 10
+
+empty
+empty
+empty
+
+empty
+empty
+empty
+
+empty
+empty
+empty
+
+water
+ground
+ground
+
+water
+ground
+ground
