@@ -15,6 +15,8 @@ def load(path):
         'under-stone-center': (5, 3),
         'under-stone-left': (6, 3),
         'water': (1, 5),
+        'deep-water': (1, 6),
+        'box': (7, 4),
         'grass-right': (0, 0),
         'grass-center': (1, 0),
         'grass-left': (2, 0),

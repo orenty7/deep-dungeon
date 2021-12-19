@@ -7,7 +7,6 @@ from pause import Pause
 from menu import Menu
 
 
-
 pygame.init()
 screen = pygame.display.set_mode((64 * 20, 64 * 12))
 clock = pygame.time.Clock()
