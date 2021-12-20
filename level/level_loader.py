@@ -26,6 +26,8 @@ def parse_level(lines):
                         (x * tile_size, y * tile_size),
                         spritesheet[tile]
                     ))
+            elif tile == 'invisible':
+                tiles.append(Tile((x * tile_size, y * tile_size)))
             elif tile == 'end':
                 tiles.append(TileEnd((x * tile_size, y * tile_size)))
             elif tile != 'empty':
