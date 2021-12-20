@@ -1,5 +1,3 @@
-
-
 FPS = 120
 
 BACKGROUND_COLOR = 'black'

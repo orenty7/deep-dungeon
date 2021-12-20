@@ -1,7 +1,5 @@
-import pygame
-
-from player import Player
 from engine import Engine
+from player import Player
 from settings import FPS
 
 
@@ -18,7 +16,6 @@ class Level:
 
     def init_engine(self, window):
         self.engine = Engine(self.tiles, self.player, self.settings, window)
-
 
     def tick(self, screen, events):
         screen.fill('white')

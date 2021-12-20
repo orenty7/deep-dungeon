@@ -1,6 +1,7 @@
+from enum import Enum
+
 import pygame
 
-from enum import Enum
 
 class Key(Enum):
     W = 0
@@ -13,6 +14,7 @@ class Key(Enum):
 class KeyState(Enum):
     Pressed = 0
     UnPressed = 1
+
 
 class KeyManager:
     def __getitem__(self, item):
@@ -29,4 +31,3 @@ class KeyManager:
             return pygame.key.get_pressed()[pygame.K_d]
         elif item == Key.Space:
             return pygame.key.get_pressed()[pygame.K_SPACE]
-

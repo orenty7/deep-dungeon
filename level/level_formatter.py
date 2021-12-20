@@ -15,7 +15,6 @@ def format_level(filepath):
 
     fstr = '{:' + str(max_) + 's}'
 
-
     out = open(filepath, 'w')
     print(width, height, file=out)
     print(*player_pos, file=out)

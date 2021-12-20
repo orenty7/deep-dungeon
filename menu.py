@@ -1,7 +1,7 @@
 import pygame
 
-from utils import center, button_rect
 from settings import BACKGROUND_COLOR, COLOR
+from utils import center, button_rect
 
 
 class Menu:

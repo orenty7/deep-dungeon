@@ -1,14 +1,11 @@
 import pygame
 
-from level import levels
-from settings import FPS
 from enums import WindowState
-from pause import Pause
+from level import levels
 from menu import Menu
+from pause import Pause
+from settings import FPS
 from utils import center
-
-
-
 
 window = (64 * 20, 64 * 12)
 
@@ -57,9 +54,7 @@ while not finished:
             if game_result:
                 text = font.render("You Win", False, 'white')
             else:
-                text = font.render("You Lose",  False, 'white')
-
-
+                text = font.render("You Lose", False, 'white')
     elif state == WindowState.GameOver:
         timer -= 1
         screen.fill('black')
@@ -70,7 +65,3 @@ while not finished:
     else:
         raise Exception('Incorrect state')
     pygame.display.update()
-
-
-
-

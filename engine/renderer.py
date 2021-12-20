@@ -4,6 +4,7 @@ import pygame
 class Renderer:
     screen_acceleration = 2
     background = (102, 224, 189)
+
     def __init__(self, tiles, player, window):
 
         min_x, min_y = tiles[0].rectangle().bottomleft
@@ -30,15 +31,14 @@ class Renderer:
         for tile in self.tiles:
             tile.draw(self.surface)
 
-
     def tick(self, dt):
         self.screen_pos = [
-            self.screen_pos[0] + ((self.player.pos[0] - self.window[0] / 2) - self.screen_pos[0]) * dt * Renderer.screen_acceleration,
+            self.screen_pos[0] + ((self.player.pos[0] - self.window[0] / 2) - self.screen_pos[
+                0]) * dt * Renderer.screen_acceleration,
             0
         ]
         self.screen_pos[0] = max(self.screen_pos[0], 32)
         self.screen_pos[0] = min(self.screen_pos[0], self.surface.get_width() - self.window[0] - 32)
-
 
     def render(self, screen):
         player_blitting_pos = (

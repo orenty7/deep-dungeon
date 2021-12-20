@@ -1,8 +1,7 @@
-import pygame
-
-from player import Player
 from engine import Engine
+from player import Player
 from settings import FPS
+
 
 # setting the class level
 class Level:

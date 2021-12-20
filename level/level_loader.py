@@ -1,8 +1,9 @@
 import os
 
-from .level import Level
-from tiles import spritesheet, Tile, TileEnd, TileKill
 from settings import tile_size
+from tiles import spritesheet, Tile, TileEnd, TileKill
+from .level import Level
+
 
 def parse_level(lines):
     lines = list(filter(lambda s: s != '', map(str.strip, lines)))
@@ -53,5 +54,6 @@ def load():
             levels.append(parse_level(file.readlines()))
 
     return levels
+
 
 levels = load()

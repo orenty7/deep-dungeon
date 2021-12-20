@@ -1,8 +1,8 @@
 import pygame
 
 from enums import PlayerState, Direction
-from utils import hitbox
 from tile_loader import characters
+from utils import hitbox
 
 
 class Player:

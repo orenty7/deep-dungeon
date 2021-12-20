@@ -1,7 +1,6 @@
 import pygame
 
 
-
 class Pause:
     def __init__(self, options, window, width):
         self.options = {}
@@ -29,4 +28,3 @@ class Pause:
         for i in range(len(self.options)):
             option = list(self.options.keys())[i]
             screen.blit(self.options[option]['surface'], (100, i * 70))
-

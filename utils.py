@@ -1,5 +1,6 @@
 import pygame
 
+
 def hitbox(sprite):
     bound_min_x = 0
     bound_min_y = 0
@@ -58,9 +59,11 @@ def center(surface, rect):
 
 
 def button_rect(size, i, params):
-    offset_x = (size[0] - params['width'] * params['buttons in row'] - params['padding x'] * (params['buttons in row'] - 1)) / 2
+    offset_x = (size[0] - params['width'] * params['buttons in row'] - params['padding x'] * (
+                params['buttons in row'] - 1)) / 2
     offset_y = size[1] // 5
 
     y = i // params['buttons in row']
     x = i % params['buttons in row']
-    return pygame.Rect(offset_x + (params['width'] + params['padding x']) * x, offset_y + (params['height'] + params['padding y']) * y, params['width'], params['height'])
+    return pygame.Rect(offset_x + (params['width'] + params['padding x']) * x,
+                       offset_y + (params['height'] + params['padding y']) * y, params['width'], params['height'])
