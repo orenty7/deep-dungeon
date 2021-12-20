@@ -11,6 +11,7 @@ class PlayerState(Enum):
     Jump = 1
     Walk = 2
     Stand = 3
+    Snake = 4
 
 
 class WindowState(Enum):

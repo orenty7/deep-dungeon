@@ -15,7 +15,8 @@ class Player:
         self.frames = {
             PlayerState.Stand: [characters[1][0]],
             PlayerState.Walk: characters[1][:4:],
-            PlayerState.Jump: characters[1][5:8:]
+            PlayerState.Jump: characters[1][5:8:],
+            PlayerState.Snake: characters[3][:4:]
         }
         self.on_ground = False
         self.frame = 0
@@ -52,9 +53,14 @@ class Player:
             image = pygame.transform.flip(image, True, False)
         screen.blit(image, pos)
 
-    def rectangle(self):
-        return pygame.Rect((
+    def real_pos(self):
+        return (
             self.pos[0] + self.hitbox.topleft[0],
-            self.pos[1] + self.hitbox.topleft[1]),
+            self.pos[1] + self.hitbox.topleft[1]
+        )
+
+    def rectangle(self):
+        return pygame.Rect(
+            self.real_pos(),
             self.size
         ).copy()

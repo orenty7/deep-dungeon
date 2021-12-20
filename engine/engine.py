@@ -24,9 +24,10 @@ class Engine:
         self.renderer.render(screen)
 
     def can_move(self, motion):
-        rect = self.player.rectangle()
-        rect = pygame.Rect((rect.topleft[0] + motion[0], rect.topleft[1] + motion[1]), rect.size)
-        # rect = rect.move(motion)
+        pos = self.player.real_pos()
+
+        rect = pygame.Rect((pos[0] + motion[0], pos[1] + motion[1]), self.player.size)
+
         tile_rects = list(map(Tile.rectangle, self.common_tiles))
         return rect.collidelist(tile_rects) == -1
 

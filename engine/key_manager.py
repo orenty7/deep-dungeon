@@ -9,6 +9,7 @@ class Key(Enum):
     S = 2
     A = 3
     Space = 4
+    LeftCTRL = 5
 
 
 class KeyState(Enum):
@@ -31,3 +32,5 @@ class KeyManager:
             return pygame.key.get_pressed()[pygame.K_d]
         elif item == Key.Space:
             return pygame.key.get_pressed()[pygame.K_SPACE]
+        elif item == Key.LeftCTRL:
+            return pygame.key.get_pressed()[pygame.K_LCTRL]
