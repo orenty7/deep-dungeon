@@ -1,30 +1,39 @@
 import pygame
 
+from settings import BACKGROUND_COLOR, COLOR
+from utils import button_rect, center
+
 
 class Pause:
-    def __init__(self, options, window, width):
-        self.options = {}
-        for option in options:
-            self.options[option] = {}
-            self.options[option]['surface'] = None
-            self.options[option]['callbacks'] = []
+    blitting_params = {
+        'padding x': 100,
+        'padding y': 20,
+        'width': 300,
+        'height': 70,
+        'buttons in row': 1
+    }
 
+    def __init__(self, options):
+        self.options = options
+        self.surfaces = [None] * len(options)
         self.render_text()
 
     def render_text(self):
         font = pygame.font.Font('DisposableDroidBB_bld.ttf', 50)
 
-        for option in self.options.keys():
-            self.options[option]['surface'] = font.render(option, False, 'black')
-
-    def click(self, event):
-        pass
-
-    def onclick(self, option, callback):
-        self.options[option]['callbacks'].append(callback)
+        for i in range(len(self.options)):
+            self.surfaces[i] = font.render(self.options[i], False, COLOR, BACKGROUND_COLOR)
 
     def tick(self, screen, events):
-        screen.fill('white')
-        for i in range(len(self.options)):
-            option = list(self.options.keys())[i]
-            screen.blit(self.options[option]['surface'], (100, i * 70))
+        screen.fill(BACKGROUND_COLOR)
+        size = screen.get_size()
+        for i in range(len(self.surfaces)):
+            rect = button_rect(size, i, self.blitting_params)
+            pygame.draw.rect(screen, COLOR, rect, 5)
+            screen.blit(self.surfaces[i], center(self.surfaces[i], rect))
+
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                for i in range(len(self.surfaces)):
+                    if button_rect(size, i, self.blitting_params).collidepoint(event.pos):
+                        return self.options[i]

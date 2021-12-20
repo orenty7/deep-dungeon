@@ -17,7 +17,7 @@ timer = 0
 
 font = pygame.font.Font('DisposableDroidBB_bld.ttf', 50)
 menu = Menu(levels)
-pause = Pause(['resume', 'main menu'], window, 200)
+pause = Pause(['Resume', 'Main Menu'])
 
 finished = False
 state = WindowState.MainMenu
@@ -44,7 +44,16 @@ while not finished:
             level.init_engine(window)
             state = WindowState.Game
     elif state == WindowState.Pause:
-        pause.tick(screen, events)
+        clicked_button = pause.tick(screen, events)
+        if clicked_button is not None:
+            clicked_button = clicked_button.lower()
+
+            if clicked_button == 'resume':
+                state = WindowState.Game
+            elif clicked_button == 'main menu':
+                level.restart(window)
+                state = WindowState.MainMenu
+
     elif state == WindowState.Game:
         level.tick(screen, events)
         game_result = level.is_won()
