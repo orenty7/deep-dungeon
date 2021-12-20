@@ -5,6 +5,9 @@ from settings import FPS
 from enums import WindowState
 from pause import Pause
 from menu import Menu
+from utils import center
+
+
 
 
 window = (64 * 20, 64 * 12)
@@ -13,6 +16,9 @@ pygame.init()
 screen = pygame.display.set_mode(window)
 clock = pygame.time.Clock()
 
+timer = 0
+
+font = pygame.font.Font('DisposableDroidBB_bld.ttf', 50)
 menu = Menu(levels)
 pause = Pause(['resume', 'main menu'], window, 200)
 
@@ -30,7 +36,7 @@ while not finished:
             elif state == WindowState.Pause:
                 state = WindowState.Game
             elif state == WindowState.MainMenu:
-                state = WindowState.Game
+                finished = True
         else:
             events.append(event)
 
@@ -42,10 +48,27 @@ while not finished:
             state = WindowState.Game
     elif state == WindowState.Pause:
         pause.tick(screen, events)
-    else:
+    elif state == WindowState.Game:
         level.tick(screen, events)
-        if level.is_end():
+        game_result = level.is_won()
+        if game_result is not None:
+            state = WindowState.GameOver
+            timer = 1 * FPS
+            if game_result:
+                text = font.render("You Win", False, 'white')
+            else:
+                text = font.render("You Lose",  False, 'white')
+
+
+    elif state == WindowState.GameOver:
+        timer -= 1
+        screen.fill('black')
+        screen.blit(text, center(text, screen.get_rect()))
+
+        if timer == 0:
             state = WindowState.MainMenu
+    else:
+        raise Exception('Incorrect state')
     pygame.display.update()
 
 

@@ -1,6 +1,7 @@
 import pygame
 
 from utils import center, button_rect
+from settings import BACKGROUND_COLOR, COLOR
 
 
 class Menu:
@@ -21,14 +22,14 @@ class Menu:
         font = pygame.font.Font('DisposableDroidBB_bld.ttf', 50)
 
         for i in range(len(self.levels)):
-            self.surfaces[i] = font.render('Level {0}'.format(i + 1), False, 'black')
+            self.surfaces[i] = font.render('Level {0}'.format(i + 1), False, COLOR, BACKGROUND_COLOR)
 
     def tick(self, screen, events):
-        screen.fill('white')
+        screen.fill(BACKGROUND_COLOR)
         size = screen.get_size()
         for i in range(len(self.surfaces)):
             rect = button_rect(size, i, self.blitting_params)
-            pygame.draw.rect(screen, 'black', rect, 5)
+            pygame.draw.rect(screen, COLOR, rect, 5)
             screen.blit(self.surfaces[i], center(self.surfaces[i], rect))
 
         for event in events:

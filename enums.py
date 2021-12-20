@@ -16,4 +16,5 @@ class PlayerState(Enum):
 class WindowState(Enum):
     Game = 0
     Pause = 1
-    MainMenu = 3
+    MainMenu = 2
+    GameOver = 3

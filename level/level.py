@@ -6,14 +6,14 @@ from settings import FPS
 
 
 class Level:
-    def __init__(self, player_pos, tiles, settings):
+    def __init__(self, player_pos, tiles, settings=None):
         self.engine = None
         self.player = Player(player_pos)
         self.tiles = tiles
 
-        settings = {
-            'gravity': 1200
-        }
+        if settings is None:
+            settings = {}
+            settings['gravity'] = 1200
         self.settings = settings
 
     def init_engine(self, window):
@@ -25,5 +25,5 @@ class Level:
         self.engine.tick(1 / FPS)
         self.engine.draw(screen)
 
-    def is_end(self):
-        return self.engine.is_won() is not None
+    def is_won(self):
+        return self.engine.is_won()

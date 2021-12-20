@@ -40,7 +40,7 @@ def parse_level(lines):
             if y == height:
                 break
 
-    return Level(player_pos, tiles, None)
+    return Level(player_pos, tiles)
 
 
 def load():
