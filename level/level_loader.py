@@ -7,8 +7,8 @@ from .level import Level
 
 def parse_level(lines):
     lines = list(filter(lambda s: s != '', map(str.strip, lines)))
-    width, height = map(int, lines[0].split())
-    player_pos = map(int, lines[1].split())
+    width, height = list(map(int, lines[0].split()))
+    player_pos = list(map(int, lines[1].split()))
 
     tiles_str = map(str.split, lines[2::])
 

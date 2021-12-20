@@ -14,6 +14,12 @@ class Level:
             settings['gravity'] = 1200
         self.settings = settings
 
+        self.player_pos = player_pos
+
+    def restart(self, window):
+        self.player = Player(self.player_pos)
+        self.init_engine(window)
+
     def init_engine(self, window):
         self.engine = Engine(self.tiles, self.player, self.settings, window)
 

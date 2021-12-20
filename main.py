@@ -49,6 +49,7 @@ while not finished:
         level.tick(screen, events)
         game_result = level.is_won()
         if game_result is not None:
+            level.restart(window)
             state = WindowState.GameOver
             timer = 1 * FPS
             if game_result:
