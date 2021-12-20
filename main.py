@@ -13,10 +13,6 @@ pygame.init()
 screen = pygame.display.set_mode(window)
 clock = pygame.time.Clock()
 
-
-# level = levels[0]
-# level.init_engine((64 * 20, 64 * 12))
-
 menu = Menu(levels)
 pause = Pause(['resume', 'main menu'], window, 200)
 
