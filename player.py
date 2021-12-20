@@ -7,7 +7,6 @@ from utils import hitbox
 
 class Player:
     speed = 500
-    acceleration = 10
 
     def __init__(self, pos):
         self.pos = [*pos]
@@ -28,7 +27,6 @@ class Player:
 
     def set_state(self, new_state):
         if self.state != new_state:
-            print(new_state)
             self.frame = 0
             self.state = new_state
 
