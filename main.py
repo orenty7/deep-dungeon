@@ -44,6 +44,8 @@ while not finished:
         pause.tick(screen, events)
     else:
         level.tick(screen, events)
+        if level.is_end():
+            state = WindowState.MainMenu
     pygame.display.update()
 
 

@@ -24,3 +24,6 @@ class Level:
         screen.fill('white')
         self.engine.tick(1 / FPS)
         self.engine.draw(screen)
+
+    def is_end(self):
+        return self.engine.is_won() is not None

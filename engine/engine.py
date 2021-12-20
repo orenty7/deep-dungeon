@@ -2,13 +2,16 @@ import pygame
 
 from enums import PlayerState, Direction
 from tiles import Tile
-from .renderer import Renderer
 from .key_manager import KeyManager, KeyState, Key
+from .renderer import Renderer
 
 
 class Engine:
     def __init__(self, tiles, player, world_settings, window):
-        self.tiles = tiles
+        self.common_tiles = list(filter(lambda tile: tile.type == 'common', tiles))
+        self.kill_tiles = list(filter(lambda tile: tile.type == 'kill', tiles))
+        self.end_tiles = list(filter(lambda tile: tile.type == 'end', tiles))
+
         self.player = player
         self.gravity = world_settings['gravity']
 
@@ -24,8 +27,20 @@ class Engine:
         rect = self.player.rectangle()
         rect = pygame.Rect((rect.topleft[0] + motion[0], rect.topleft[1] + motion[1]), rect.size)
         # rect = rect.move(motion)
-        tile_rects = list(map(Tile.rectangle, self.tiles))
+        tile_rects = list(map(Tile.rectangle, self.common_tiles))
         return rect.collidelist(tile_rects) == -1
+
+    def is_won(self):
+        rect = self.player.rectangle()
+        end_tile_rects = list(map(Tile.rectangle, self.end_tiles))
+        kill_tile_rects = list(map(Tile.rectangle, self.kill_tiles))
+
+        if rect.collidelist(kill_tile_rects) != -1:
+            return False
+
+        if rect.collidelist(end_tile_rects) != -1:
+            return True
+        return None
 
     def tick(self, dt):
         self.renderer.tick(dt)
@@ -45,7 +60,6 @@ class Engine:
         if self.key_state[Key.A] == KeyState.Pressed:
             self.player.velocity[0] -= self.player.speed
             self.player.set_moving_direction(Direction.Left)
-
 
         motion = (
             self.player.velocity[0] * dt,
@@ -79,10 +93,5 @@ class Engine:
                 self.player.pos[1] += 0.4
                 self.player.velocity[1] = 0
 
-
-
         if self.can_move((0, 5)):
             self.player.velocity[1] += self.gravity * dt
-
-
-

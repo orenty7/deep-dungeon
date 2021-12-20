@@ -1,7 +1,7 @@
 import os
 
 from .level import Level
-from tiles import spritesheet, Tile
+from tiles import spritesheet, Tile, TileEnd, TileKill
 from settings import tile_size
 
 def parse_level(lines):
@@ -16,10 +16,18 @@ def parse_level(lines):
     for line in tiles_str:
         for tile in line:
             if tile in spritesheet:
-                tiles.append(Tile(
-                    (x * tile_size, y * tile_size),
-                    spritesheet[tile]
-                ))
+                if tile != 'water':
+                    tiles.append(Tile(
+                        (x * tile_size, y * tile_size),
+                        spritesheet[tile]
+                    ))
+                else:
+                    tiles.append(TileKill(
+                        (x * tile_size, y * tile_size),
+                        spritesheet[tile]
+                    ))
+            elif tile == 'end':
+                tiles.append(TileEnd((x * tile_size, y * tile_size)))
             elif tile != 'empty':
                 print('Error, wrong tile')
 
