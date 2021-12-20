@@ -50,6 +50,8 @@ def load():
     filenames.sort()
     levels = []
     for filename in filenames:
+        if filename[0] == '_':
+            continue
         with open(path + '/' + filename, 'r') as file:
             levels.append(parse_level(file.readlines()))
 
